@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Details Page</title>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>    
+    <div style="margin-top: 20px;">
+      <h1 class="main_title">Personal Details Page</h1>
+        <label for="name">Full Name</label>
+        <input
+          class="inputBox"
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Your Name"
+        />
+        <span for="name" id="error_name" class="error_message"></span
+        ><br /><br />
+
+        <label for="email">Email</label>
+        <input
+          class="inputBox"
+          type="text"
+          id="email"
+          name="email"
+          placeholder="Your Email"
+        />
+        <span for="name" id="error_email" class="error_message"></span
+        ><br /><br />
+
+        <label for="country">Phone Number</label>
+        <br />
+        <input
+          class="inputBox"
+          type="text"
+          id="phone_number"
+          name="phone_number"
+          placeholder="Your Phone Number"
+          maxlength="18"
+        />
+        <b><span id="operator" class="text_size"></span>
+        <span id="state" class="text_size"></span></b>
+        <span for="name" id="error_phone" class="error_message"></span
+        ><br /><br />
+        <input type="submit" id="submit" class="button" value="Submit" />
+      </form>
+    </div>
+    <script src="./js/index.js" ></script>
+  </body>
+</html>

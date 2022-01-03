@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thank you Page</title>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <div style="margin-top: 20px;">
+        <h1>Thank You</h1>
+      <b><p id="first_name_tag"></p></b>
+      <p>
+        Thank you for your inquiry. A 4 digit verification number has been sent
+        to your phone number : <b><span id="phone_number_tag"></span></b>, please enter
+        in the following box and submit for confirmation :
+      </p>
+      <input
+        class="otp_input"
+        type="text"
+        id="otp_input"
+        placeholder="Enter your otp here"
+      />
+      <span id="error_otp" class="error_message"></span><br />
+      <input
+        type="button"
+        class="button1"
+        id="validate_otp_btn"
+        value="Validate"
+      />
+    </div>
+    <script src="./js/thankyoupage.js"></script>
+  </body>
+</html>

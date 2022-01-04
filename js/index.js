@@ -39,7 +39,7 @@ var states = [
 ];
 
 //Array of valid numbers for corresponding states
-//I have decide numbers between 500 and 537 are valid numbers for states.
+//I have decide numbers between 500 and 537 are valid numbers for states respectively. States are define in alphabetical order.
 var validNumbers = [
   501, 502, 503, 504, 505, 506, 507, 508, 509, 510, 511, 512, 513, 514, 515,
   516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530,
@@ -65,11 +65,10 @@ const operator = document.getElementById("operator");
 const state = document.getElementById("state");
 
 //validating name field
-nameBox.addEventListener("blur", () => {
+nameBox.addEventListener("keyup", () => {
   var name = nameBox.value;
-  console.log(name);
   var name_arr = name.split(" ");
-  var expresion = /^[A-Za-z\s]*$/;
+  var expresion = /^\S[A-Za-z\s]+$/;
   if (name.length > 0) {
     if (name.match(expresion)) {
       if (name_arr.length >= 2) {
@@ -101,10 +100,10 @@ nameBox.addEventListener("blur", () => {
 });
 
 //validating email field
-emailBox.addEventListener("blur", () => {
+emailBox.addEventListener("keyup", () => {
   var email = emailBox.value;
-  var emailPattern =
-    /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  var emailPattern = /^[a-zA-Z0-9\._\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,7}$/;
+  // var emailPattern = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
   if (email.length > 0) {
     if (email.match(emailPattern)) {
       emailError.innerText = "";
@@ -123,14 +122,15 @@ emailBox.addEventListener("blur", () => {
 });
 
 //validating phone number
-phoneNumberBox.addEventListener("blur", () => {
+phoneNumberBox.addEventListener("keyup", () => {
   var phoneNumber = phoneNumberBox.value.replace(/\D/g, "").substring(0, 10);
-  var numberPattern = /^[0-9]+$/;
+  var numberPattern = /^([0-9]){10}$/;
   if (phoneNumber.length > 0) {
     if (phoneNumber.match(numberPattern)) {
       if (phoneNumber.length == 10) {
         phoneNumberBox.classList.remove("inputBoxError");
         isPhoneNumberValid = true;
+        phoneNumberError.innerText="";
       } else {
         isPhoneNumberValid = false;
         phoneNumberBox.classList.add("inputBoxError");
@@ -149,11 +149,25 @@ phoneNumberBox.addEventListener("blur", () => {
 });
 
 //format phone number like (564)-(654)-7675
+
+// function validateState(middle) {
+//   for (var i = 0; i < 36; i++) {
+//     if (validNumbers[i] == middle) {
+//       state.innerText = ", " + states[i];
+//       phoneNumberError.innerText = "";
+//       break;
+//     } else {
+//       phoneNumberError.innerText = "* Invalid Number ";
+//       state.innerText = "";
+//     }
+//   }
+// }
+
 function validateState(middle) {
-  for (var i = 0; i < 36; i++) {
-    if (validNumbers[i] == middle) {
-      console.log(states[i]);
-      state.innerText = ", " + states[i];
+  for (var i = 0; i < 1000; i++) {
+    if (i == middle) {
+      state.innerText =
+        ", " + states[Math.floor(Math.random() * states.length)];
       phoneNumberError.innerText = "";
       break;
     } else {
@@ -175,6 +189,11 @@ const formatToPhone = (event) => {
     target.value = `(${first}) - ${middle} - ${last}`;
   } else if (input.length > 3) {
     target.value = `(${first}) - ${middle}`;
+    if (middle.length == 3) {
+      validateState(middle);
+    }else{
+      state.innerText="";
+    }
   } else if (input.length > 0) {
     target.value = `(${first}`;
   }
@@ -189,14 +208,14 @@ const formatToPhone = (event) => {
     operator.innerText = "";
     phoneNumberError.innerText = "";
   } else {
+    state.innerText="";
     phoneNumberError.innerText = "* Invalid Number ";
   }
-  validateState(middle);
 };
 
 phoneNumberBox.addEventListener("keyup", formatToPhone);
 
-//submitting information 
+//submitting information
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
   if (isNameValid && isEmailValid && isPhoneNumberValid) {
@@ -204,7 +223,6 @@ submitBtn.addEventListener("click", (e) => {
     var email = emailBox.value;
     var phoneNumber = phoneNumberBox.value;
     var otp = Math.floor(Math.random() * 100 + 1111);
-    console.log("Innformation is valid", name, email, phoneNumber);
     sessionStorage.setItem("NAME", name);
     sessionStorage.setItem("EMAIL", email);
     sessionStorage.setItem("PHONE_NUMBER", phoneNumber);
@@ -233,4 +251,3 @@ submitBtn.addEventListener("click", (e) => {
     }
   }
 });
-

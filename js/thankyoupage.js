@@ -9,6 +9,13 @@ let phoneNumberTag = document.getElementById("phone_number_tag");
 let validateOtpBtn = document.getElementById("validate_otp_btn");
 let otpInput = document.getElementById("otp_input");
 let otpInputError = document.getElementById("error_otp");
+let otpVerificationContainer = document.getElementById(
+  "otp_verification_container"
+);
+let otpSuccessfullContainer = document.getElementById(
+  "otp_successfull_container"
+);
+let otpFailedContainer = document.getElementById("otp_failed_container");
 
 //accessing submitted information using sessionStorage
 var name = sessionStorage.getItem("NAME");
@@ -24,7 +31,7 @@ firstNameTag.innerText = "Dear " + firstName + ",";
 phoneNumberTag.innerText = phoneNumber;
 
 //validating otp input
-otpInput.addEventListener("blur", () => {
+otpInput.addEventListener("keyup", () => {
   let otp = otpInput.value;
   var numberPattern = /^[0-9]+$/;
   if (otp.length > 0) {
@@ -51,11 +58,13 @@ validateOtpBtn.addEventListener("click", (e) => {
   e.preventDefault();
   if (isValidOtp) {
     if (otpInput.value == otp) {
-      window.location.href = "http://pixel6.co/";
-      console.log("Validation Succssfull");
+      otpVerificationContainer.classList.add("hide");
+      otpSuccessfullContainer.classList.remove("hide");
+      setTimeout(() => {
+        window.location.href = "http://pixel6.co/";
+      },1000);
     } else {
       otpInputError.innerText = "* Invalid OTP";
-      console.log("Incorrect OTP");
       otpInput.value = "";
       if (attempt1 && attempt2 && attempt3) {
         otpInputError.innerText = "* 2 attempts";
@@ -66,13 +75,20 @@ validateOtpBtn.addEventListener("click", (e) => {
       } else if (!attempt1 && !attempt2 && attempt3) {
         otpInputError.innerText = "";
         attempt3 = false;
-        window.location.href = "http://pixel6.co/404";
+        otpFailedContainer.classList.remove("hide");
+        otpVerificationContainer.classList.add("hide");
+        setTimeout(() => {
+          window.location.href = "http://pixel6.co/404";
+        },1000);
       } else if (!attempt1 && !attempt2 && !attempt3) {
-        window.location.href = "http://pixel6.co/404";
+        setTimeout(() => {
+          window.location.href = "http://pixel6.co/404";
+        },1000);
+        otpFailedContainer.classList.remove("hide");
+        otpVerificationContainer.classList.add("hide");
       }
     }
   } else {
-    otpInputError.innerText = "* Please type OTP before submitting";
+    otpInputError.innerText = "* Please type valid OTP before submitting";
   }
 });
-

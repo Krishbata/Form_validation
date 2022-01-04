@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./css/index.css" />
   </head>
   <body>
-    <div style="margin-top: 20px;">
+    <div style="margin-top: 20px;" id="otp_verification_container">
         <h1>Thank You</h1>
       <b><p id="first_name_tag"></p></b>
       <p>
@@ -30,6 +30,14 @@
         id="validate_otp_btn"
         value="Validate"
       />
+    </div>
+    <div id="otp_successfull_container" style="margin-top: 20px;"  class="hide">
+      <h1 class="main_title" >Thank you</h1>
+      <p style="text-align: center; color: rgb(12, 143, 0); font-size: 70px;">Validation successfull</p>
+    </div>
+    <div id="otp_failed_container" style="margin-top: 20px;" class="hide">
+      <h1 class="main_title" >Thank you</h1>
+      <p style="text-align: center; color: red; font-size: 70px;">Validation Failed</p>
     </div>
     <script src="./js/thankyoupage.js"></script>
   </body>
